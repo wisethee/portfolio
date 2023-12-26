@@ -1,0 +1,9 @@
+.mp-logo {
+  display: inline-flex;
+  color: var(--color--on-surface);
+}
+
+.mp-logo svg {
+  width: var(--width--logo);
+  height: auto;
+}

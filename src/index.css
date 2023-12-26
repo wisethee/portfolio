@@ -13,10 +13,9 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: "Jost", sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 #root {
@@ -50,7 +49,12 @@ body {
   }
 }
 
-/* [02. ] Font Size CSS Properties */
+/* [02. ] Font Family CSS Properties */
+:root {
+  --font-family--sans: "Jost", sans-serif;
+}
+
+/* [03. ] Font Size CSS Properties */
 :root {
   --font-size--display-large: clamp(3.625rem, 7.222vw + 1.458rem, 10.125rem);
   --font-size--display-medium: clamp(2.625rem, 3.056vw + 1.708rem, 5.375rem);
@@ -59,11 +63,31 @@ body {
   --font-size--label-large: clamp(0.875rem, 0.758vw + 0.591rem, 1.5rem);
 }
 
-/* [03. ] Line Height CSS Properties */
+/* [04. ] Line Height CSS Properties */
 :root {
   --leading--display-large: clamp(3.125rem, 5.833vw + 1.375rem, 8.375rem);
   --leading--display-medium: clamp(3rem, 3.056vw + 2.083rem, 5.75rem);
   --leading--display-small: clamp(2.25rem, 1.944vw + 1.667rem, 4rem);
   --leading--title-large: clamp(1.5rem, 1.053vw + 1.184rem, 2rem);
   --leading--label-large: clamp(0.875rem, 0.758vw + 0.591rem, 1.5rem);
+}
+
+/* [05. ] Spacing CSS Properties */
+:root {
+  --spacing--01: clamp(0.75rem, 1.875vw + 0.047rem, 1.5rem);
+  --spacing--02: clamp(1.5rem, 3.75vw + 0.094rem, 3rem);
+  --spacing--03: clamp(3rem, 7.5vw + 0.188rem, 6rem);
+}
+
+/* [06. ] Width CSS Properties */
+:root {
+  --width--logo: clamp(3rem, 2.5vw + 2.063rem, 4rem);
+}
+
+/* [07. ] Font Weight CSS Properties */
+body {
+  font-family: var(--font-family--sans);
+  font-size: 16px;
+  color: var(--color--on-surface-variant);
+  -webkit-font-smoothing: antialiased;
 }

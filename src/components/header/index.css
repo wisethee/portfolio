@@ -1,0 +1,25 @@
+.mp-header {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  gap: 0.5rem;
+  width: 100%;
+  position: relative;
+  z-index: 30;
+  padding-block: var(--spacing--02);
+  padding-inline: var(--spacing--03);
+}
+
+.mp-header__start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  grid-column: 1 / span 2;
+}
+
+.mp-header__end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-column: 3 / span 2;
+}
