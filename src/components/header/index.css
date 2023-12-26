@@ -23,3 +23,27 @@
   align-items: center;
   grid-column: 3 / span 2;
 }
+
+@media (min-width: 600px) {
+  .mp-header {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  .mp-header__start {
+    grid-column: 1 / span 4;
+  }
+  .mp-header__end {
+    grid-column: 5 / span 4;
+  }
+}
+
+@media (min-width: 905px) {
+  .mp-header {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .mp-header__start {
+    grid-column: 1 / span 6;
+  }
+  .mp-header__end {
+    grid-column: 7 / span 6;
+  }
+}

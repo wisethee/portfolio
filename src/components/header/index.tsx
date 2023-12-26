@@ -1,4 +1,5 @@
 import Logo from "../logo";
+import Nav from "../nav";
 
 import "./index.css";
 
@@ -8,7 +9,9 @@ const Header = () => {
       <div className="mp-header__start">
         <Logo />
       </div>
-      <div className="mp-header__end">nav</div>
+      <div className="mp-header__end">
+        <Nav />
+      </div>
     </header>
   );
 };
