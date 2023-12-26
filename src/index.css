@@ -1,0 +1,69 @@
+/* [00. ] Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Jost", sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  isolation: isolate;
+}
+
+/* [01. ] Colors */
+:root {
+  --color--primary: #e9624a;
+  --color--on-primary: #ffffff;
+  --color--surface: #ffffff;
+  --color--on-surface: #000000;
+  --color--surface-variant: #fef7f5;
+  --color--on-surface-variant: #453936;
+  --color--disabled: #f7e7e3;
+  --color--on-disabled: #caafa8;
+  --color--outline: #ead4cd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color--primary: #e9624a;
+    --color--on-primary: #000000;
+    --color--surface: #201d1d;
+    --color--on-surface: #ffffff;
+    --color--surface-variant: #292120;
+    --color--on-surface-variant: #fcefec;
+    --color--disabled: #5e4e49;
+    --color--on-disabled: #89726c;
+    --color--outline: #5e4e49;
+  }
+}
+
+/* [02. ] Font Size CSS Properties */
+:root {
+  --font-size--display-large: clamp(3.625rem, 7.222vw + 1.458rem, 10.125rem);
+  --font-size--display-medium: clamp(2.625rem, 3.056vw + 1.708rem, 5.375rem);
+  --font-size--display-small: clamp(2.25rem, 1.944vw + 1.667rem, 4rem);
+  --font-size--title-large: clamp(1rem, 1.053vw + 0.684rem, 1.5rem);
+  --font-size--label-large: clamp(0.875rem, 0.758vw + 0.591rem, 1.5rem);
+}
+
+/* [03. ] Line Height CSS Properties */
+:root {
+  --leading--display-large: clamp(3.125rem, 5.833vw + 1.375rem, 8.375rem);
+  --leading--display-medium: clamp(3rem, 3.056vw + 2.083rem, 5.75rem);
+  --leading--display-small: clamp(2.25rem, 1.944vw + 1.667rem, 4rem);
+  --leading--title-large: clamp(1.5rem, 1.053vw + 1.184rem, 2rem);
+  --leading--label-large: clamp(0.875rem, 0.758vw + 0.591rem, 1.5rem);
+}
