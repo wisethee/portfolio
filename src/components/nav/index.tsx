@@ -24,7 +24,7 @@ const Nav = () => {
 
           return (
             <li key={name}>
-              <a href={href} className="">
+              <a href={href}>
                 <span>{name}</span>
               </a>
             </li>
