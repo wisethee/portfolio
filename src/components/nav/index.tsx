@@ -17,8 +17,8 @@ const navItems = [
 
 const Nav = () => {
   return (
-    <nav className="text-label-large uppercase hidden md:flex">
-      <ul className="flex flex-col gap-y-2-3 items-end">
+    <nav className="mp-nav">
+      <ul>
         {navItems.map((item) => {
           const { name, href } = item;
 

@@ -13,14 +13,12 @@
 .mp-header__start {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   grid-column: 1 / span 2;
 }
 
 .mp-header__end {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   grid-column: 3 / span 2;
 }
 

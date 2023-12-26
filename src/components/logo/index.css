@@ -1,5 +1,6 @@
 .mp-logo {
   display: inline-flex;
+  align-items: flex-start;
   color: var(--color--on-surface);
 }
 

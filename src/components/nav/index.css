@@ -1,0 +1,21 @@
+.mp-nav {
+  font-size: var(--font-size--label-large);
+  line-height: var(--leading--label-large);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color--on-surface);
+  display: none;
+}
+
+.mp-nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing--00);
+}
+
+@media (min-width: 905px) {
+  .mp-nav {
+    display: flex;
+  }
+}
