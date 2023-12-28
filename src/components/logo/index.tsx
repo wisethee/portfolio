@@ -1,13 +1,14 @@
 import "./index.css";
 
 const Logo = () => (
-  <a href="/" className="mp-logo">
+  <a href="/" className="mp-logo" aria-label="Logo Link">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={64}
       height={"auto"}
       fill="none"
       viewBox="0 0 64 44"
+      aria-label="Logo Icon"
     >
       <path
         stroke="currentColor"

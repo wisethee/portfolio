@@ -1,20 +1,41 @@
 import "./index.css";
 
+const headline = [
+  ["C", "r", "a", "f", "t", "i", "n", "g"],
+  ["g", "o", "o", "d"],
+  ["d", "i", "g", "i", "t", "a", "l"],
+  ["s", "t", "o", "r", "i", "e", "s"],
+  ["w", "i", "t", "h"],
+  ["c", "o", "d", "e"],
+];
+
 const Hero = () => {
   return (
     <section className="mp-hero">
       <div className="mp-hero-inner">
-        <span className="mp-hero-subtitle mp-title-large">
+        <p
+          className="mp-hero-subtitle mp-title-large"
+          aria-label="Marius P. Paduraru"
+        >
           Marius P. Paduraru
-        </span>
-        <div className="mp-hero-title mp-display-large">
-          <span>Crafting</span>
-          <span>good</span>
-          <span>digital</span>
-          <span>stories</span>
-          <span>with</span>
-          <span>code</span>
-        </div>
+        </p>
+        <h1
+          className="mp-hero-title mp-display-large"
+          aria-label="Crafting good digital stories with code"
+        >
+          {headline.map((word, index) => (
+            <span key={index} className="mp-hero-title-word">
+              {word.map((letter, index) => (
+                <span key={index} className="mp-hero-title-letter">
+                  {letter}
+                </span>
+              ))}
+              {index < headline.length - 1 && (
+                <span className="mp-hero-title-space">&nbsp;</span>
+              )}
+            </span>
+          ))}
+        </h1>
       </div>
     </section>
   );
