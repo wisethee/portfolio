@@ -1,0 +1,4 @@
+.mp-footer {
+  padding-block: var(--spacing--02);
+  padding-inline: var(--spacing--inline);
+}

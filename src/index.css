@@ -83,8 +83,8 @@ ul {
 :root {
   --spacing--00: clamp(0.5rem, 0.625vw + 0.266rem, 0.75rem);
   --spacing--01: clamp(0.75rem, 1.875vw + 0.047rem, 1.5rem);
-  --spacing--02: clamp(1.5rem, 3.75vw + 0.094rem, 3rem);
-  --spacing--03: clamp(3rem, 7.5vw + 0.188rem, 6rem);
+  --spacing--02: clamp(1rem, 5vw + -0.875rem, 3rem);
+  --spacing--inline: clamp(1rem, 12.5vw + -3.687rem, 6rem);
 }
 
 /* [06. ] Width CSS Properties */
