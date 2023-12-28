@@ -85,8 +85,9 @@ ul {
   --spacing--01: clamp(0.75rem, 1.875vw + 0.047rem, 1.5rem);
   --spacing--02: clamp(1rem, 5vw + -0.875rem, 3rem);
   --spacing--03: clamp(1.5rem, 3.75vw + 0.094rem, 3rem);
+  --spacing--04: clamp(3rem, 7.5vw + 0.188rem, 6rem);
+  --spacing--05: clamp(6rem, 15vw + 0.375rem, 12rem);
   --spacing--inline: clamp(1rem, 12.5vw + -3.687rem, 6rem);
-  --spacing--hero: clamp(6rem, 15vw + 0.375rem, 12rem);
 }
 
 /* [06. ] Width CSS Properties */
@@ -109,7 +110,7 @@ body {
 }
 
 /* [09. ] Typography CSS Properties */
-.mp-display--large {
+.mp-display-large {
   font-size: var(--font-size--display-large);
   line-height: var(--leading--display-large);
   letter-spacing: -0.003em;
@@ -118,7 +119,15 @@ body {
   color: var(--color--on-surface);
 }
 
-.mp-title--large {
+.mp-display-medium {
+  font-size: var(--font-size--display-medium);
+  line-height: var(--leading--display-medium);
+  letter-spacing: -0.003em;
+  font-weight: 700;
+  color: var(--color--on-surface);
+}
+
+.mp-title-large {
   font-size: var(--font-size--title-large);
   line-height: var(--leading--title-large);
   letter-spacing: 0.18em;

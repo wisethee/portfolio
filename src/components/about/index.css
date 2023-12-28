@@ -1,44 +1,32 @@
-.mp-hero {
+.mp-about {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: 1fr;
   gap: 0.5rem;
-  padding-block: var(--spacing--05);
-  height: var(--height);
+  padding-block: var(--spacing--04);
 }
 
-.mp-hero-inner {
+.mp-about-inner {
   grid-column: 1 / span 4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: var(--spacing--03);
 }
 
-.mp-hero-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 @media (min-width: 600px) {
-  .mp-hero {
+  .mp-about {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
-
-  .mp-hero-inner {
+  .mp-about-inner {
     grid-column: 2 / span 6;
   }
 }
 
 @media (min-width: 905px) {
-  .mp-hero {
+  .mp-about {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    height: auto;
   }
-
-  .mp-hero-inner {
-    grid-column: 3 / span 8;
+  .mp-about-inner {
+    grid-column: 2 / span 10;
   }
 }

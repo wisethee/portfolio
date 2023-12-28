@@ -5,6 +5,7 @@ import Main from "./components/main";
 import Hero from "./components/hero";
 import Footer from "./components/footer";
 import Resize from "./components/resize";
+import About from "./components/about";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
 
       <Main>
         <Hero />
+        <About />
       </Main>
 
       <Footer />
