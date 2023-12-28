@@ -92,7 +92,12 @@ ul {
   --width--logo: clamp(3rem, 2.5vw + 2.063rem, 4rem);
 }
 
-/* [07. ] Font Weight CSS Properties */
+/* [07. ] Transition CSS Properties */
+:root {
+  --transition: all 0.3s cubic-bezier(0.12, 0.72, 0.33, 1);
+}
+
+/* [08. ] Font Weight CSS Properties */
 body {
   font-family: var(--font-family--sans);
   font-size: 16px;

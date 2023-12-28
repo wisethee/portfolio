@@ -4,6 +4,7 @@ import "./app.css";
 import Main from "./components/main";
 import Hero from "./components/hero";
 import Footer from "./components/footer";
+import Resize from "./components/resize";
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
       </Main>
 
       <Footer />
+
+      <Resize />
     </>
   );
 };
