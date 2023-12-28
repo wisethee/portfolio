@@ -7,7 +7,7 @@ import "./index.css";
 const navItems = [
   {
     name: "About",
-    href: "#",
+    href: "#about",
   },
   {
     name: "Work",

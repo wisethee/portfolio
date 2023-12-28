@@ -2,7 +2,7 @@ import "./index.css";
 
 const About = () => {
   return (
-    <div className="mp-about">
+    <div id="about" className="mp-about">
       <div className="mp-about-inner">
         <span className="mp-title-large">About</span>
         <p className="mp-display-medium">
