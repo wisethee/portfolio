@@ -8,6 +8,10 @@
   z-index: 30;
   padding-block: var(--spacing--02);
   padding-inline: var(--spacing--inline);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .mp-header__start {
