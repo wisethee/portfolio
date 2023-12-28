@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import NavItem from "../nav-item";
+
 import "./index.css";
 
 const navItems = [
@@ -16,6 +20,13 @@ const navItems = [
 ];
 
 const Nav = () => {
+  const defaultActiveItem = navItems[0].name;
+  const [activeItem, setActiveItem] = useState(defaultActiveItem);
+
+  const handleClick = (name: string) => {
+    setActiveItem(name);
+  };
+
   return (
     <nav className="mp-nav">
       <ul>
@@ -23,11 +34,13 @@ const Nav = () => {
           const { name, href } = item;
 
           return (
-            <li key={name}>
-              <a href={href}>
-                <span>{name}</span>
-              </a>
-            </li>
+            <NavItem
+              key={name}
+              name={name}
+              href={href}
+              activeItem={activeItem}
+              onHandleClick={handleClick}
+            />
           );
         })}
       </ul>
