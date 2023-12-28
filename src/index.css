@@ -104,6 +104,7 @@ body {
   font-family: var(--font-family--sans);
   font-size: 16px;
   color: var(--color--on-surface-variant);
+  background-color: var(--color--surface);
   -webkit-font-smoothing: antialiased;
 }
 

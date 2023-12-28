@@ -1,5 +1,4 @@
-import { useSpring, animated } from "@react-spring/web";
-
+import { cls } from "../../utils";
 import "./index.css";
 
 type NavItemProps = {
@@ -12,40 +11,18 @@ type NavItemProps = {
 };
 
 const NavItem = ({ name, href, activeItem, onHandleClick }: NavItemProps) => {
-  const [springs, api] = useSpring(() => ({
-    from: {
-      x: 0,
-    },
-  }));
-
   const handleClick = () => {
     onHandleClick(name);
-
-    api.start({
-      from: {
-        x: 0,
-      },
-      to: {
-        x: 100,
-      },
-    });
-
-    api.start({
-      from: {
-        x: 100,
-      },
-      to: {
-        x: 0,
-      },
-      delay: 500,
-    });
   };
 
   return (
-    <li className={activeItem === name ? "a" : "b"}>
-      <animated.a href={href} onClick={handleClick} style={{ ...springs }}>
-        <span>{name}</span>
-      </animated.a>
+    <li className={cls("mp-nav-item", activeItem === name ? "is-active" : "")}>
+      <a href={href} onClick={() => handleClick()}>
+        <span className="mp-nav-item-inner">
+          <span className="mp-nav-item--deep">{name}</span>
+          <span className="mp-nav-item--active ">{name}</span>
+        </span>
+      </a>
     </li>
   );
 };

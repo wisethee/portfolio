@@ -1,0 +1,31 @@
+.mp-nav-item-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  clip-path: inset(0);
+}
+
+.mp-nav-item a {
+  color: var(--color--on-disabled);
+}
+
+.mp-nav-item a .mp-nav-item--deep,
+.mp-nav-item a .mp-nav-item--active {
+  transition: var(--transition);
+}
+
+.mp-nav-item a .mp-nav-item--active {
+  position: absolute;
+  transform: translateY(100%);
+  color: var(--color--on-surface);
+}
+
+.mp-nav-item.is-active a .mp-nav-item--deep,
+.mp-nav-item a:hover .mp-nav-item--deep {
+  transform: translateY(-100%);
+}
+
+.mp-nav-item.is-active a .mp-nav-item--active,
+.mp-nav-item a:hover .mp-nav-item--active {
+  transform: translateY(0);
+}

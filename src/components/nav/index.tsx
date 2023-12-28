@@ -29,7 +29,7 @@ const Nav = () => {
 
   return (
     <nav className="mp-nav">
-      <ul>
+      <ul className="mp-nav-items">
         {navItems.map((item) => {
           const { name, href } = item;
 
