@@ -11,17 +11,21 @@ const headline = [
   ["c", "o", "d", "e"],
 ];
 
+type HeadlineTrailProps = {
+  headline: string[][];
+};
+
 type LetterTrailProps = {
   letters: string[];
 };
 
 const LetterTrail = ({ letters }: LetterTrailProps) => {
-  const trail = useTrail(letters.length, {
+  const lettersTrail = useTrail(letters.length, {
     config: {
       mass: 1,
       tension: 170,
       friction: 26,
-      frequency: 0.18,
+      frequency: 0.12,
     },
     y: 0,
     from: {
@@ -31,7 +35,7 @@ const LetterTrail = ({ letters }: LetterTrailProps) => {
 
   return (
     <>
-      {trail.map(({ ...style }, index) => (
+      {lettersTrail.map(({ ...style }, index) => (
         <animated.span
           key={index}
           className="mp-hero-title-letter"
@@ -40,6 +44,35 @@ const LetterTrail = ({ letters }: LetterTrailProps) => {
           {letters[index]}
         </animated.span>
       ))}
+    </>
+  );
+};
+
+const HeadlineTrail = ({ headline }: HeadlineTrailProps) => {
+  const trail = useTrail(headline.length, {
+    config: {
+      mass: 1,
+      tension: 170,
+      friction: 26,
+      frequency: 0.18,
+    },
+    y: 0,
+    from: {
+      y: 960,
+    },
+  });
+
+  return (
+    <>
+      {trail.map(({ ...style }, index) => {
+        return (
+          <span key={index} className="mp-hero-title-word">
+            <animated.span className="mp-hero-title-word-inner" style={style}>
+              <LetterTrail letters={headline[index]} />
+            </animated.span>
+          </span>
+        );
+      })}
     </>
   );
 };
@@ -58,13 +91,7 @@ const Hero = () => {
           className="mp-hero-title mp-display-large"
           aria-label="Crafting good digital stories with code"
         >
-          {headline.map((word, index) => (
-            <span key={index} className="mp-hero-title-word">
-              <span key={index} className="mp-hero-title-word-inner">
-                <LetterTrail letters={word} />
-              </span>
-            </span>
-          ))}
+          <HeadlineTrail headline={headline} />
         </h1>
       </div>
     </section>
