@@ -79,7 +79,7 @@ const HeadlineTrail = ({ headline }: HeadlineTrailProps) => {
 
 const Hero = () => {
   return (
-    <section className="mp-hero">
+    <section id="hero" className="mp-hero">
       <div className="mp-hero-inner">
         <p
           className="mp-hero-subtitle mp-title-large"

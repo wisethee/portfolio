@@ -135,3 +135,9 @@ body {
   text-transform: uppercase;
   color: var(--color--on-surface);
 }
+
+/* [10. ] Modifiers CSS Properties */
+.is-text-disabled {
+  color: var(--color--on-disabled);
+  opacity: 0.3;
+}
