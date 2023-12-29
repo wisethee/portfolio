@@ -1,3 +1,5 @@
+import { animated, useTrail } from "@react-spring/web";
+
 import "./index.css";
 
 const headline = [
@@ -8,6 +10,39 @@ const headline = [
   ["w", "i", "t", "h"],
   ["c", "o", "d", "e"],
 ];
+
+type LetterTrailProps = {
+  letters: string[];
+};
+
+const LetterTrail = ({ letters }: LetterTrailProps) => {
+  const trail = useTrail(letters.length, {
+    config: {
+      mass: 1,
+      tension: 170,
+      friction: 26,
+      frequency: 0.18,
+    },
+    y: 0,
+    from: {
+      y: 30,
+    },
+  });
+
+  return (
+    <>
+      {trail.map(({ ...style }, index) => (
+        <animated.span
+          key={index}
+          className="mp-hero-title-letter"
+          style={style}
+        >
+          {letters[index]}
+        </animated.span>
+      ))}
+    </>
+  );
+};
 
 const Hero = () => {
   return (
@@ -25,14 +60,9 @@ const Hero = () => {
         >
           {headline.map((word, index) => (
             <span key={index} className="mp-hero-title-word">
-              {word.map((letter, index) => (
-                <span key={index} className="mp-hero-title-letter">
-                  {letter}
-                </span>
-              ))}
-              {index < headline.length - 1 && (
-                <span className="mp-hero-title-space">&nbsp;</span>
-              )}
+              <span key={index} className="mp-hero-title-word-inner">
+                <LetterTrail letters={word} />
+              </span>
             </span>
           ))}
         </h1>

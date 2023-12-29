@@ -97,7 +97,7 @@ ul {
 
 /* [07. ] Transition CSS Properties */
 :root {
-  --transition: all 0.3s cubic-bezier(0.12, 0.72, 0.33, 1);
+  --transition: all 0.3s cubic-bezier(0.39, 0.6, 0.6, 1);
 }
 
 /* [08. ] Font Weight CSS Properties */
