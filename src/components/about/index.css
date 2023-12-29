@@ -13,6 +13,10 @@
   gap: var(--spacing--03);
 }
 
+.mp-about-text span {
+  opacity: 0.3;
+}
+
 @media (min-width: 600px) {
   .mp-about {
     grid-template-columns: repeat(8, minmax(0, 1fr));
