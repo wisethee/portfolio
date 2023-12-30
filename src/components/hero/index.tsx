@@ -25,7 +25,7 @@ const LetterTrail = ({ letters }: LetterTrailProps) => {
       mass: 1,
       tension: 170,
       friction: 26,
-      frequency: 0.12,
+      frequency: 0.24,
     },
     y: 0,
     from: {
@@ -54,7 +54,7 @@ const HeadlineTrail = ({ headline }: HeadlineTrailProps) => {
       mass: 1,
       tension: 170,
       friction: 26,
-      frequency: 0.18,
+      frequency: 0.3,
     },
     y: 0,
     from: {
