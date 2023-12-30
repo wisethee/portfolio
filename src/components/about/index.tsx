@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { animated, useInView, useScroll } from "@react-spring/web";
+import { useEffect, useState, forwardRef, useRef } from "react";
+import { animated, useInView, useScroll, useSpring } from "@react-spring/web";
 
 import { useScrollY } from "../../hooks";
 
@@ -9,17 +9,55 @@ import "./index.css";
 const defaultParagraph =
   "I'm a web developer who finds beauty in simplicity. My love for coding drives me to craft efficient solutions that highlight the inherent simplicity hidden within every project.";
 
-const About = () => {
+type WordProps = {
+  word: string;
+  index: number;
+  length: number;
+  scrollYProgress: any;
+};
+
+const Word = ({ word, index, length, scrollYProgress }: WordProps) => {
+  const [ref, inView] = useInView({
+    rootMargin: "-9% 0%",
+  });
+
+  const [spring, set] = useSpring(() => ({
+    opacity: inView ? 1 : 0,
+  }));
+
+  useEffect(() => {
+    set({
+      opacity: scrollYProgress.to((progress: number) => {
+        // console.log(Math.round(progress));
+      }),
+    });
+  }, [inView]);
+
+  return (
+    <animated.span className="mp-about-word" ref={ref} style={spring}>
+      {word}
+      {index !== length - 1 ? " " : ""}
+    </animated.span>
+  );
+};
+
+const About = forwardRef(() => {
   const [paragraph, setParagraph] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const scrollSize = useScrollY();
   const [columnRef, inView] = useInView();
-  const { scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
+
+  const scrollSize = useScrollY(columnRef);
 
   useEffect(() => {
     if (!loading && inView) {
       console.log(scrollSize);
+
+      // const columnHeight = columnRef.current?.offsetHeight;
+      // const columnOffset = columnRef.current?.offsetTop;
+      // const windowHeight = window.innerHeight;
+      // console.log(columnOffset - windowHeight);
     } else {
       setLoading(false);
     }
@@ -35,15 +73,18 @@ const About = () => {
         <span className="mp-title-large">About</span>
         <div className="mp-about-paragraph mp-display-medium">
           {paragraph.map((word, index) => (
-            <animated.span className="mp-about-word" key={index}>
-              {word}
-              {index !== paragraph.length - 1 ? " " : ""}
-            </animated.span>
+            <Word
+              key={index}
+              word={word}
+              index={index}
+              length={paragraph.length}
+              scrollYProgress={scrollY}
+            />
           ))}
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default About;

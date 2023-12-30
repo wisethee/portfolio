@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useScrollY = () => {
+export const useScrollY = (ref) => {
   const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
@@ -15,22 +15,23 @@ export const useScrollY = () => {
       subtree: true,
     });
 
-    const updateHeight = () => {
+    const updateDocumentHeight = () => {
+      setDocumentHeight(document.body.clientHeight);
+    };
+
+    const updateWindowHeight = () => {
       setWindowHeight(window.innerHeight);
     };
 
     window.addEventListener("resize", () => {
-      setDocumentHeight(document.body.clientHeight);
+      updateDocumentHeight();
+      updateWindowHeight();
     });
-
-    window.addEventListener("resize", updateHeight);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", () => {
-        setDocumentHeight(document.body.clientHeight);
-      });
-      window.removeEventListener("resize", updateHeight);
+      window.removeEventListener("resize", updateDocumentHeight);
+      window.removeEventListener("resize", updateWindowHeight);
     };
   }, []);
 
@@ -55,3 +56,30 @@ export const useScrollY = () => {
 // }
 
 // export default useScrollSize;
+
+// type UseScrollYInSection = (sectionRef: React.RefObject<HTMLElement>) => number;
+
+// export const useScrollYInSection = (sectionRef: UseScrollYInSection) => {
+//   const [scrollAmount, setScrollAmount] = useState(0);
+
+//   useEffect(() => {
+//     const section = sectionRef.current;
+
+//     const handleScroll = () => {
+//       if (section) {
+//         const sectionTop = section.offsetTop;
+//         const scrollY = window.scrollY;
+//         const sectionPosition = scrollY - sectionTop;
+//         setScrollAmount(sectionPosition);
+//       }
+//     };
+
+//     window.addEventListener("scroll", handleScroll);
+
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, [sectionRef]);
+
+//   return scrollAmount;
+// };
