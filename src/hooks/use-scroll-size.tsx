@@ -1,85 +1,33 @@
 import { useEffect, useState } from "react";
 
 export const useScrollY = (ref) => {
-  const [documentHeight, setDocumentHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setDocumentHeight(document.body.clientHeight);
-    });
-
-    observer.observe(document.body, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    });
-
-    const updateDocumentHeight = () => {
-      setDocumentHeight(document.body.clientHeight);
-    };
-
-    const updateWindowHeight = () => {
+    const updateDocumentHeights = () => {
       setWindowHeight(window.innerHeight);
     };
 
-    window.addEventListener("resize", () => {
-      updateDocumentHeight();
-      updateWindowHeight();
-    });
+    updateDocumentHeights();
+
+    window.addEventListener("resize", updateDocumentHeights);
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateDocumentHeight);
-      window.removeEventListener("resize", updateWindowHeight);
+      window.removeEventListener("resize", updateDocumentHeights);
     };
   }, []);
 
-  return documentHeight - windowHeight;
+  useEffect(() => {
+    const columnOffset = ref.current.offsetTop;
+    const columnHeight = ref.current.offsetHeight;
+    setStart(columnOffset - windowHeight);
+    setEnd(columnHeight);
+
+    console.log(columnOffset, columnHeight);
+  }, [ref, windowHeight]);
+
+  return [start, end];
 };
-
-// export function useScrollSize() {
-//   const [scrollSize, setScrollSize] = useState(0);
-
-//   useEffect(() => {
-//     function updateScrollSize() {
-//       setScrollSize(window.scrollY);
-//     }
-
-//     window.addEventListener("scroll", updateScrollSize);
-//     updateScrollSize();
-
-//     return () => window.removeEventListener("scroll", updateScrollSize);
-//   }, []);
-
-//   return Math.round(scrollSize);
-// }
-
-// export default useScrollSize;
-
-// type UseScrollYInSection = (sectionRef: React.RefObject<HTMLElement>) => number;
-
-// export const useScrollYInSection = (sectionRef: UseScrollYInSection) => {
-//   const [scrollAmount, setScrollAmount] = useState(0);
-
-//   useEffect(() => {
-//     const section = sectionRef.current;
-
-//     const handleScroll = () => {
-//       if (section) {
-//         const sectionTop = section.offsetTop;
-//         const scrollY = window.scrollY;
-//         const sectionPosition = scrollY - sectionTop;
-//         setScrollAmount(sectionPosition);
-//       }
-//     };
-
-//     window.addEventListener("scroll", handleScroll);
-
-//     return () => {
-//       window.removeEventListener("scroll", handleScroll);
-//     };
-//   }, [sectionRef]);
-
-//   return scrollAmount;
-// };

@@ -1,4 +1,4 @@
-import { useEffect, useState, forwardRef, useRef } from "react";
+import { useEffect, useState } from "react";
 import { animated, useInView, useScroll, useSpring } from "@react-spring/web";
 
 import { useScrollY } from "../../hooks";
@@ -14,24 +14,49 @@ type WordProps = {
   index: number;
   length: number;
   scrollYProgress: any;
+  start: number;
+  end: number;
 };
 
-const Word = ({ word, index, length, scrollYProgress }: WordProps) => {
+const Word = ({
+  word,
+  index,
+  length,
+  scrollYProgress,
+  start,
+  end,
+}: WordProps) => {
   const [ref, inView] = useInView({
-    rootMargin: "-9% 0%",
+    rootMargin: "-18% 0%",
   });
 
-  const [spring, set] = useSpring(() => ({
+  const [spring, api] = useSpring(() => ({
     opacity: inView ? 1 : 0,
   }));
 
+  // Calculate the range for this word
+  const wordStart = (start + (index / length) * (end - start)) / end;
+  const wordEnd = (start + ((index + 1) / length) * (end - start)) / end;
+
   useEffect(() => {
-    set({
-      opacity: scrollYProgress.to((progress: number) => {
-        // console.log(Math.round(progress));
-      }),
+    console.log({ wordStart, wordEnd });
+
+    api({
+      opacity: inView
+        ? scrollYProgress.to((progress: number) => {
+            if (progress < wordStart) {
+              return 0.3;
+            } else if (progress > wordEnd) {
+              return 1;
+            } else {
+              const opacity =
+                (progress - wordStart) / (wordEnd - wordStart) + 0.3;
+              return Math.max(0.3, Math.min(1, opacity));
+            }
+          })
+        : 0.3,
     });
-  }, [inView]);
+  }, [inView, scrollYProgress, start, end, api, wordStart, wordEnd]);
 
   return (
     <animated.span className="mp-about-word" ref={ref} style={spring}>
@@ -41,35 +66,30 @@ const Word = ({ word, index, length, scrollYProgress }: WordProps) => {
   );
 };
 
-const About = forwardRef(() => {
+const About = () => {
   const [paragraph, setParagraph] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [columnRef, inView] = useInView();
+  const [ref, inView] = useInView();
   const { scrollY } = useScroll();
 
-  const scrollSize = useScrollY(columnRef);
+  const [start, end] = useScrollY(ref);
 
   useEffect(() => {
     if (!loading && inView) {
-      console.log(scrollSize);
-
-      // const columnHeight = columnRef.current?.offsetHeight;
-      // const columnOffset = columnRef.current?.offsetTop;
-      // const windowHeight = window.innerHeight;
-      // console.log(columnOffset - windowHeight);
+      console.log({ start, end });
     } else {
       setLoading(false);
     }
-  }, [inView, loading, scrollSize]);
+  }, [inView, loading, start, end]);
 
   useEffect(() => {
     setParagraph(defaultParagraph.split(" "));
   }, []);
 
   return (
-    <div id="about" className="mp-about">
-      <div className="mp-about-column" ref={columnRef}>
+    <div id="about" className="mp-about" ref={ref}>
+      <div className="mp-about-column">
         <span className="mp-title-large">About</span>
         <div className="mp-about-paragraph mp-display-medium">
           {paragraph.map((word, index) => (
@@ -79,12 +99,14 @@ const About = forwardRef(() => {
               index={index}
               length={paragraph.length}
               scrollYProgress={scrollY}
+              start={start}
+              end={end}
             />
           ))}
         </div>
       </div>
     </div>
   );
-});
+};
 
 export default About;
