@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+import { animated, useInView, useScroll } from "@react-spring/web";
 
+import { useScrollY } from "../../hooks";
+
+// Styles
 import "./index.css";
 
 const defaultParagraph =
@@ -7,6 +11,19 @@ const defaultParagraph =
 
 const About = () => {
   const [paragraph, setParagraph] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const scrollSize = useScrollY();
+  const [columnRef, inView] = useInView();
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    if (!loading && inView) {
+      console.log(scrollSize);
+    } else {
+      setLoading(false);
+    }
+  }, [inView, loading, scrollSize]);
 
   useEffect(() => {
     setParagraph(defaultParagraph.split(" "));
@@ -14,14 +31,14 @@ const About = () => {
 
   return (
     <div id="about" className="mp-about">
-      <div className="mp-about-inner">
+      <div className="mp-about-column" ref={columnRef}>
         <span className="mp-title-large">About</span>
-        <div className="mp-about-text mp-display-medium">
+        <div className="mp-about-paragraph mp-display-medium">
           {paragraph.map((word, index) => (
-            <span key={index}>
+            <animated.span className="mp-about-word" key={index}>
               {word}
-              {index !== length - 1 ? " " : ""}
-            </span>
+              {index !== paragraph.length - 1 ? " " : ""}
+            </animated.span>
           ))}
         </div>
       </div>

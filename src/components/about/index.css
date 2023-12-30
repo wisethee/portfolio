@@ -6,14 +6,14 @@
   padding-block: var(--spacing--04);
 }
 
-.mp-about-inner {
+.mp-about-column {
   grid-column: 1 / span 4;
   display: flex;
   flex-direction: column;
   gap: var(--spacing--03);
 }
 
-.mp-about-text span {
+.mp-about-word {
   color: var(--color--on-disabled);
   opacity: 0.3;
 }
@@ -22,7 +22,7 @@
   .mp-about {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
-  .mp-about-inner {
+  .mp-about-column {
     grid-column: 2 / span 6;
   }
 }
@@ -31,7 +31,7 @@
   .mp-about {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
-  .mp-about-inner {
+  .mp-about-column {
     grid-column: 2 / span 10;
   }
 }
