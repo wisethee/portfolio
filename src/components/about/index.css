@@ -14,8 +14,8 @@
 }
 
 .mp-about-word {
+  display: inline-flex;
   color: var(--color--on-disabled);
-  opacity: 0.3;
 }
 
 @media (min-width: 600px) {
