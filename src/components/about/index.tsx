@@ -19,7 +19,7 @@ type WordProps = {
 
 const Word = ({ word, index, length, start, end }: WordProps) => {
   const [ref, inView] = useInView({
-    rootMargin: "0% 0%",
+    rootMargin: "-30% 0%",
   });
 
   const { scrollYProgress } = useScroll();
@@ -30,14 +30,22 @@ const Word = ({ word, index, length, start, end }: WordProps) => {
 
   useEffect(() => {
     api.start({
-      opacity: inView
-        ? scrollYProgress.to((progress: number) => {
-            console.log(progress);
-            return 1;
-          })
-        : 0.3,
+      opacity: scrollYProgress.to((progress: number) => {
+        // Calculate the normalized progress (0 to 1) within the scroll range
+        const normalizedProgress = (progress - start) / (end - start);
+        // Calculate the threshold for each word based on its index
+        const threshold = index / length;
+        // If the normalized progress is past the threshold, set the opacity to 1
+        if (normalizedProgress >= threshold) {
+          return 1;
+        }
+        // If the normalized progress is less than the threshold, set the opacity to 0.3
+        else {
+          return 0.3;
+        }
+      }),
     });
-  }, [inView, scrollYProgress, api]);
+  }, [scrollYProgress, api, index, length, start, end]);
 
   return (
     <animated.span className="mp-about-word" ref={ref} style={spring}>
@@ -58,10 +66,10 @@ const About = () => {
   }, []);
 
   return (
-    <div id="about" className="mp-about" ref={ref}>
+    <div id="about" className="mp-about">
       <div className="mp-about-column">
         <span className="mp-title-large">About</span>
-        <div className="mp-about-paragraph mp-display-medium">
+        <div className="mp-about-paragraph mp-display-medium" ref={ref}>
           {paragraph.map((word, index) => (
             <Word
               key={index}

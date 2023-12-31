@@ -14,7 +14,7 @@
 }
 
 .mp-about-word {
-  display: inline-flex;
+  /* display: inline-flex; */
   color: var(--color--on-disabled);
 }
 
