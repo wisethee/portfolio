@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { animated, useInView, useScroll, useSpring } from "@react-spring/web";
+import {
+  SpringValue,
+  animated,
+  useInView,
+  useScroll,
+  useSpring,
+} from "@react-spring/web";
 
-import { useScrollY } from "../../hooks";
+import { useScrollPosition } from "../../hooks";
 
 // Styles
 import "./index.css";
@@ -13,7 +19,7 @@ type WordProps = {
   word: string;
   index: number;
   length: number;
-  scrollYProgress: any;
+  scrollYProgress: SpringValue<number>;
   start: number;
   end: number;
 };
@@ -35,28 +41,33 @@ const Word = ({
   }));
 
   // Calculate the range for this word
-  const wordStart = (start + (index / length) * (end - start)) / end;
-  const wordEnd = (start + ((index + 1) / length) * (end - start)) / end;
+  const scrollRange = end - start;
+  const wordPosition = (index + 1) / length;
+  const wordStart = start + wordPosition * scrollRange;
 
   useEffect(() => {
-    console.log({ wordStart, wordEnd });
+    inView && console.log(word);
+  }, [inView]);
 
+  useEffect(() => {
     api({
       opacity: inView
         ? scrollYProgress.to((progress: number) => {
-            if (progress < wordStart) {
+            if (progress < start) {
               return 0.3;
-            } else if (progress > wordEnd) {
+            } else if (progress > end) {
               return 1;
             } else {
-              const opacity =
-                (progress - wordStart) / (wordEnd - wordStart) + 0.3;
-              return Math.max(0.3, Math.min(1, opacity));
+              const opacity = Math.max(
+                0.3,
+                Math.min(1, (progress - wordStart) / scrollRange + 0.3)
+              );
+              return opacity;
             }
           })
         : 0.3,
     });
-  }, [inView, scrollYProgress, start, end, api, wordStart, wordEnd]);
+  }, [inView, scrollYProgress, start, end, api, wordStart, scrollRange]);
 
   return (
     <animated.span className="mp-about-word" ref={ref} style={spring}>
@@ -71,9 +82,9 @@ const About = () => {
   const [loading, setLoading] = useState(true);
 
   const [ref, inView] = useInView();
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
 
-  const [start, end] = useScrollY(ref);
+  const [start, end] = useScrollPosition(ref);
 
   useEffect(() => {
     if (!loading && inView) {
@@ -98,7 +109,7 @@ const About = () => {
               word={word}
               index={index}
               length={paragraph.length}
-              scrollYProgress={scrollY}
+              scrollYProgress={scrollYProgress}
               start={start}
               end={end}
             />

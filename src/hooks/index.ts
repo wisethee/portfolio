@@ -1,1 +1,1 @@
-export { useScrollY } from "./use-scroll-size";
+export { useScrollPosition } from "./use-scroll-position";
