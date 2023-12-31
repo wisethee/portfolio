@@ -18,6 +18,15 @@
   color: var(--color--on-disabled);
 }
 
+.is-in-view {
+  color: var(--color--on-surface);
+}
+
+.mp-about-word.is-in-view:nth-child(3),
+.mp-about-word.is-in-view:nth-child(4) {
+  color: var(--color--primary);
+}
+
 @media (min-width: 600px) {
   .mp-about {
     grid-template-columns: repeat(8, minmax(0, 1fr));

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { animated, useInView, useScroll, useSpring } from "@react-spring/web";
+import { animated, useScroll, useSpring } from "@react-spring/web";
 
 import { useScrollPosition } from "../../hooks";
 
@@ -18,29 +18,27 @@ type WordProps = {
 };
 
 const Word = ({ word, index, length, start, end }: WordProps) => {
-  const [ref, inView] = useInView({
-    rootMargin: "-30% 0%",
-  });
-
   const { scrollYProgress } = useScroll();
+  const [opacity, setOpacity] = useState(0.3);
 
-  const [spring, api] = useSpring(() => ({
-    opacity: inView ? 1 : 0,
-  }));
+  const [spring, api] = useSpring(() => ({}));
 
   useEffect(() => {
     api.start({
       opacity: scrollYProgress.to((progress: number) => {
         // Calculate the normalized progress (0 to 1) within the scroll range
-        const normalizedProgress = (progress - start) / (end - start);
+        const normalizedProgress =
+          (progress - start * 2.4) / (end * 1.2 - start * 2.4);
         // Calculate the threshold for each word based on its index
         const threshold = index / length;
         // If the normalized progress is past the threshold, set the opacity to 1
         if (normalizedProgress >= threshold) {
+          setOpacity(1);
           return 1;
         }
         // If the normalized progress is less than the threshold, set the opacity to 0.3
         else {
+          setOpacity(0.3);
           return 0.3;
         }
       }),
@@ -48,7 +46,10 @@ const Word = ({ word, index, length, start, end }: WordProps) => {
   }, [scrollYProgress, api, index, length, start, end]);
 
   return (
-    <animated.span className="mp-about-word" ref={ref} style={spring}>
+    <animated.span
+      className={`mp-about-word ${opacity === 1 ? "is-in-view" : ""}`}
+      style={spring}
+    >
       {word}
       {index !== length - 1 ? " " : ""}
     </animated.span>
