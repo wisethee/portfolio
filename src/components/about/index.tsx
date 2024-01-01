@@ -17,28 +17,38 @@ type WordProps = {
   end: number;
 };
 
+const calculateNormalizedProgress = (
+  progress: number,
+  start: number,
+  end: number
+): number => {
+  return (progress - start * 3) / (end * 1.5 - start * 3);
+};
+
+const calculateThreshold = (index: number, length: number): number => {
+  return index / length;
+};
+
 const Word = ({ word, index, length, start, end }: WordProps) => {
   const { scrollYProgress } = useScroll();
-  const [opacity, setOpacity] = useState(0.3);
+  const [isActive, setIsActive] = useState(0.3);
 
   const [spring, api] = useSpring(() => ({}));
 
   useEffect(() => {
     api.start({
       opacity: scrollYProgress.to((progress: number) => {
-        // Calculate the normalized progress (0 to 1) within the scroll range
-        const normalizedProgress =
-          (progress - start * 3) / (end * 2.4 - start * 3);
-        // Calculate the threshold for each word based on its index
-        const threshold = index / length;
-        // If the normalized progress is past the threshold, set the opacity to 1
+        const normalizedProgress = calculateNormalizedProgress(
+          progress,
+          start,
+          end
+        );
+        const threshold = calculateThreshold(index, length);
         if (normalizedProgress >= threshold) {
-          setOpacity(1);
+          setIsActive(1);
           return 1;
-        }
-        // If the normalized progress is less than the threshold, set the opacity to 0.3
-        else {
-          setOpacity(0.3);
+        } else {
+          setIsActive(0.3);
           return 0.3;
         }
       }),
@@ -47,7 +57,7 @@ const Word = ({ word, index, length, start, end }: WordProps) => {
 
   return (
     <animated.span
-      className={`mp-about-word ${opacity === 1 ? "is-in-view" : ""}`}
+      className={isActive === 1 ? "mp-about-word is-in-view" : "mp-about-word"}
       style={spring}
     >
       {word}
