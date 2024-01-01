@@ -28,7 +28,7 @@ const Word = ({ word, index, length, start, end }: WordProps) => {
       opacity: scrollYProgress.to((progress: number) => {
         // Calculate the normalized progress (0 to 1) within the scroll range
         const normalizedProgress =
-          (progress - start * 2.4) / (end * 1.2 - start * 2.4);
+          (progress - start * 3) / (end * 2.4 - start * 3);
         // Calculate the threshold for each word based on its index
         const threshold = index / length;
         // If the normalized progress is past the threshold, set the opacity to 1
